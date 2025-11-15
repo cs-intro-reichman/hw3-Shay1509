@@ -11,19 +11,14 @@ public class Algebra {
    		System.out.println(minus(2,7));  // 2 - 7
 		System.out.println(times(0,4));  // 3 * 4
  		System.out.println(times(3,4));  // 3 * 4
-		System.out.println(times(3,0));  // 3 * 4
-		System.out.println(times(3,15));  // 3 * 4
-		System.out.println(times(3,-10));  // 3 * 4
    		System.out.println(plus(2,times(4,2)));  // 2 + 4 * 2
    		System.out.println(pow(5,3));      // 5^3
    		System.out.println(pow(3,5));      // 3^5
    		System.out.println(div(12,3));   // 12 / 3    
    		System.out.println(div(5,5));    // 5 / 5  
    		System.out.println(div(25,7));   // 25 / 7
-		System.out.println(div(0,7));   // 25 / 7
    		System.out.println(mod(25,7));   // 25 % 7
-   		System.out.println(mod(120,6));  // 120 % 6    
-		System.out.println(mod(100,9));   		
+   		System.out.println(mod(120,6));  // 120 % 6    	
 		System.out.println(sqrt(36));
 		System.out.println(sqrt(263169));
    		System.out.println(sqrt(76123));
@@ -34,9 +29,9 @@ public class Algebra {
 		int i = 0;
 
 		if(x2 < 0){
-			while(i < x2){
+			while(i > x2){
 				x1--;
-				i++;
+				i--;
 			}
 		}
 		else{
@@ -54,9 +49,9 @@ public class Algebra {
 		int i = 0;
 
 		if(x2 < 0){
-			while(i < x2){
+			while(i > x2){
 				x1++;
-				i++;
+				i--;
 			}}
 		else{
 			while(i < x2){
@@ -72,31 +67,38 @@ public class Algebra {
 		int i = 0;
 		int newNum = 0;
 
-		if(x2 == 0 | x1 == 0){
+		if(x2 == 0 || x1 == 0){
 			newNum = 0;
 		}
 
 		else if(x2 < 0 && x1 > 0){
-			while(i < ((-1) * (x2))){
+			while(i > x2){
 				newNum = plus(newNum, x1);
-				i++;
-		}	
-			newNum = (-1) * newNum;
+				i--;
+			}	
+			newNum = minus(0, newNum);
 		}
 
 		else if(x1 < 0 && x2 > 0){
 			while(i < x2){
-				newNum = minus(newNum, x1);
+				newNum = plus(newNum, x1);
 				i++;
-		}	
-
+			}	
 		}
 
 		else if(x1 > 0 && x2 > 0){
 			while(i < x2){
 				newNum = plus(newNum, x1) ;
 				i++;
+			}
 		}
+
+		else if(x1 < 0 && x2 < 0){
+			while(i > x2){
+				newNum = plus(newNum, x1);
+				i--;
+			}
+			newNum = minus(0, newNum);
 		}
 		return newNum;
 	}
@@ -109,7 +111,7 @@ public class Algebra {
 		if(n == 0){
 			newNum = times(1, 1);
 		}
-
+		
 		else{
 			while(i < n){
 			newNum = times(newNum, x);
@@ -121,15 +123,26 @@ public class Algebra {
 
 	// Returns the integer part of x1 / x2 
 	public static int div(int x1, int x2) {
-		int i = 0;
 		int count = 0;
 		int newNum = x1;
+		int newNum2 = x2;
 		
-		while(minus(newNum, x2) >= 0){
-				newNum = minus(newNum, x2);
+		if(newNum < 0){
+			newNum = times(-1, newNum);
+		}
+
+		if(x2 < 0){
+			newNum2 = times(-1, x2);
+		}
+
+		while(minus(newNum, newNum2) >= 0){
+				newNum = minus(newNum, newNum2);
 				count++;
 			}
-			i++;
+	
+		if(x1 < 0 && x2 > 0){
+			count = times(count, -1);
+		}
 		return count;
 	}
 

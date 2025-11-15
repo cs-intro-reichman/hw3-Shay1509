@@ -7,7 +7,6 @@ public class Anagram {
 		System.out.println(isAnagram("Madam Curie","Radium came")); // true
 		System.out.println(isAnagram("Tom Marvolo Riddle","I am Lord Voldemort")); // true
 		System.out.println(isAnagram("Tom Marvolo Riddle","I am Ld Voldemort")); // false
-		System.out.println(isAnagram("shay", "shaya"));
 
 		// Tests the preProcess function.
 		System.out.println(preProcess("What? No way!!!"));
@@ -25,6 +24,7 @@ public class Anagram {
 			pass = pass && isAnagram(str, randomAnagram);
 			if (!pass) break;
 		}
+		System.out.println(randomAnagram("hello"));
 		System.out.println(pass ? "test passed" : "test Failed");
 	}  
 
@@ -83,7 +83,7 @@ public class Anagram {
 			int j = (int)(Math.random() * processedStr.length());
 			char letter = processedStr.charAt(j);
 			newstr += letter;
-			processedStr = processedStr.replace(processedStr.valueOf(letter), "");
+			processedStr = processedStr.substring(0, j) + processedStr.substring(j + 1);
 		}
 		return newstr;
 	}
